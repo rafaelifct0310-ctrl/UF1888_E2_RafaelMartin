@@ -8,6 +8,8 @@
                 <header>
                     <button name="action_generate" type="object" string="Generar" class="btn-primary"/>
                     <button name="action_print_pdf" type="object" string="Imprimir PDF"/>
+                    <!-- Nuevo botón de exportación -->
+                    <button name="action_export_csv"  type="object" string="Exportar CSV"/>
                 </header>
                 <sheet>
                     <group>
