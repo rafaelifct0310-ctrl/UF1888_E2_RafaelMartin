@@ -87,4 +87,24 @@ JOIN product_product pp ON sol.product_id = pp.id
 JOIN product_template pt ON pp.product_tmpl_id = pt.id
 WHERE so.state IN ('sale', 'done')
 GROUP BY pt.name
-ORDER BY cantidad_total_vendida DESC; 
+ORDER BY cantidad_total_vendida DESC;
+```
+![alt text](consulta_producto_mas_vendido.png) 
+
+#### Consulta completa (cliente, producto, importe y fecha)
+```sql
+SELECT
+    rp.name AS cliente,
+    pt.name AS producto,
+    sol.price_subtotal AS importe,
+    so.date_order AS fecha
+FROM sale_order_line sol
+JOIN sale_order so ON sol.order_id = so.id
+JOIN res_partner rp ON so.partner_id = rp.id
+JOIN product_product pp ON sol.product_id = pp.id
+JOIN product_template pt ON pp.product_tmpl_id = pt.id
+WHERE so.state IN ('sale', 'done')
+ORDER BY so.date_order DESC;
+```
+![alt text](consulta_completa.png)
+
