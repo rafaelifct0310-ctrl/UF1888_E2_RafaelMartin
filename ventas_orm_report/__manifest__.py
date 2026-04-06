@@ -77,5 +77,5 @@ comercial usando únicamente el ORM de Odoo.
     # SI ES UNA APLICACIÓN PRINCIPAL O NO
     # False = módulo funcional (no aparece como app principal)
     # ------------------------------------------------------------
-    'application': False,
+    'application': True,
 }

@@ -56,7 +56,6 @@
 
     <menuitem id="menu_sale_report_orm_root"
               name="Consultas ORM"
-              parent="sale.sale_order_menu"
               sequence="95"/>
 
     <menuitem id="menu_sale_report_orm_wizard"
