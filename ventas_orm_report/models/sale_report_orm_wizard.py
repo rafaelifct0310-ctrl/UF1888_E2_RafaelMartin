@@ -15,6 +15,8 @@ class SaleReportOrmWizard(models.TransientModel):
     _name = 'sale.report.orm.wizard'
     # Descripción visible
     _description = 'Asistente de informe ORM de ventas'
+    # Nombre amigable
+    name = fields.Char(default='Informe ORM de Ventas')
 
     # ------------------------------------------------------------
     # CAMPOS DE FILTRO (lo que el usuario rellena en pantalla)
