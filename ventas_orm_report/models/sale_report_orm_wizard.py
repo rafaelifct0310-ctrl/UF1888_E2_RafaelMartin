@@ -104,9 +104,15 @@ class SaleReportOrmWizard(models.TransientModel):
         domain = self._build_domain()
 
         # CONSULTA ORM (equivalente a SELECT)
+        # ANTES (incorrecto en Odoo 19):
+        # sale_lines = self.env['sale.order.line'].search(
+        #     domain,
+        #     order='order_id.date_order desc, id desc'
+        # )
+        # AHORA (correcto en Odoo 19):
         sale_lines = self.env['sale.order.line'].search(
             domain,
-            order='order_id.date_order desc, id desc'
+            order='order_id desc, id desc'
         )
 
         # Si no hay datos → error para el usuario
