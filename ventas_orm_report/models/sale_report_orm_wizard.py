@@ -16,7 +16,18 @@ class SaleReportOrmWizard(models.TransientModel):
     # Descripción visible
     _description = 'Asistente de informe ORM de ventas'
     # Nombre amigable
-    name = fields.Char(default='Informe ORM de Ventas')
+    _rec_name = 'name'  # ← indicamos que use este campo como nombre
+
+    # Campo calculado, sin store → no necesita columna en BD
+    name = fields.Char(
+        string='Nombre',
+        compute='_compute_name'
+    )
+    
+    @api.depends()
+    def _compute_name(self):
+        for rec in self:
+            rec.name = 'Informe ORM de Ventas'
 
     # ------------------------------------------------------------
     # CAMPOS DE FILTRO (lo que el usuario rellena en pantalla)
