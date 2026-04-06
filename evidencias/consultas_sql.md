@@ -74,3 +74,17 @@ GROUP BY rp.name
 ORDER BY total_vendido;
 ```
 ![alt text](ventas_cliente.png)
+
+#### Consulta productos mas vendidos
+```sql
+SELECT
+    pt.name AS producto,
+    SUM(sol.product_uom_qty) AS cantidad_total_vendida,
+    SUM(sol.price_subtotal) AS importe_total
+FROM sale_order_line sol
+JOIN sale_order so ON sol.order_id = so.id
+JOIN product_product pp ON sol.product_id = pp.id
+JOIN product_template pt ON pp.product_tmpl_id = pt.id
+WHERE so.state IN ('sale', 'done')
+GROUP BY pt.name
+ORDER BY cantidad_total_vendida DESC; 
