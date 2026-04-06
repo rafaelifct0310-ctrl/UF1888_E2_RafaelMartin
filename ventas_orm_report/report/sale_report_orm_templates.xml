@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_report_orm_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Informe ORM de ventas</h2>
+
+                        <p>
+                            <strong>Fecha desde:</strong>
+                            <span t-esc="o.date_from or '-'"/>
+                            <br/>
+                            <strong>Fecha hasta:</strong>
+                            <span t-esc="o.date_to or '-'"/>
+                            <br/>
+                            <strong>Cliente:</strong>
+                            <span t-esc="o.partner_id.name if o.partner_id else 'Todos'"/>
+                            <br/>
+                            <strong>Modo:</strong>
+                            <span t-esc="'Productos más vendidos' if o.only_top_products else 'Detalle de líneas de venta'"/>
+                        </p>
+
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Producto</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th class="text-end">Importe</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td><span t-esc="line.order_name or '-'"/></td>
+                                    <td><span t-esc="line.partner_id.name or '-'"/></td>
+                                    <td><span t-esc="line.product_id.display_name"/></td>
+                                    <td class="text-end"><span t-esc="line.qty"/></td>
+                                    <td class="text-end"><span t-esc="line.amount"/></td>
+                                    <td><span t-esc="line.date_order"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <strong>Número de líneas:</strong>
+                            <span t-esc="o.line_count"/>
+                            <br/>
+                            <strong>Cantidad total:</strong>
+                            <span t-esc="o.total_qty"/>
+                            <br/>
+                            <strong>Importe total:</strong>
+                            <span t-esc="o.total_amount"/>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

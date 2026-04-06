@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_report_orm_wizard_form" model="ir.ui.view">
+        <field name="name">sale.report.orm.wizard.form</field>
+        <field name="model">sale.report.orm.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Informe ORM de ventas">
+                <header>
+                    <button name="action_generate" type="object" string="Generar" class="btn-primary"/>
+                    <button name="action_print_pdf" type="object" string="Imprimir PDF"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="only_top_products"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="line_count" readonly="1"/>
+                        <field name="total_qty" readonly="1"/>
+                        <field name="total_amount" readonly="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Resultados">
+                            <field name="line_ids" nolabel="1">
+                                <list create="0" delete="0">
+                                    <field name="order_name" optional="show"/>
+                                    <field name="partner_id" optional="show"/>
+                                    <field name="product_id"/>
+                                    <field name="qty" sum="Total cantidad"/>
+                                    <field name="amount" sum="Total importe"/>
+                                    <field name="date_order"/>
+                                    <field name="is_grouped" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_report_orm_wizard" model="ir.actions.act_window">
+        <field name="name">Informe ORM de ventas</field>
+        <field name="res_model">sale.report.orm.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_sale_report_orm_root"
+              name="Consultas ORM"
+              parent="sale.sale_order_menu"
+              sequence="95"/>
+
+    <menuitem id="menu_sale_report_orm_wizard"
+              name="Informe de ventas"
+              parent="menu_sale_report_orm_root"
+              action="action_sale_report_orm_wizard"
+              sequence="10"/>
+</odoo>
