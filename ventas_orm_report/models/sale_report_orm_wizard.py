@@ -1,3 +1,9 @@
+
+# Importamos lo necesario para exportar a csv:
+import csv
+import io
+import base64
+
 # Importamos defaultdict para poder agrupar datos fácilmente (similar a un GROUP BY en SQL)
 from collections import defaultdict
 
@@ -23,7 +29,7 @@ class SaleReportOrmWizard(models.TransientModel):
         string='Nombre',
         compute='_compute_name'
     )
-    
+
     @api.depends()
     def _compute_name(self):
         for rec in self:
@@ -237,6 +243,53 @@ class SaleReportOrmWizard(models.TransientModel):
             'res_model': 'sale.report.orm.wizard',
             'view_mode': 'form',
             'target': 'current',
+        }
+    
+    # ------------------------------------------------------------
+    # ACCIÓN PARA EXPORTAR CSV
+    # ------------------------------------------------------------
+    def action_export_csv(self):
+        self.ensure_one()
+
+        # Si no hay datos, generamos primero
+        if not self.line_ids:
+            self.action_generate()
+
+        # Creamos el CSV en memoria
+        output = io.StringIO()
+        writer = csv.writer(output, delimiter=';')
+
+        # Cabecera
+        writer.writerow(['Pedido', 'Cliente', 'Producto', 'Cantidad', 'Importe', 'Fecha'])
+
+        # Filas
+        for line in self.line_ids:
+            writer.writerow([
+                line.order_name or '',
+                line.partner_id.name if line.partner_id else '',
+                line.product_id.name if line.product_id else '',
+                line.qty,
+                line.amount,
+                line.date_order.strftime('%d/%m/%Y %H:%M') if line.date_order else '',
+            ])
+
+        # Codificamos en base64 para descarga
+        csv_content = base64.b64encode(output.getvalue().encode('utf-8-sig'))
+        output.close()
+
+        # Guardamos en un adjunto temporal
+        attachment = self.env['ir.attachment'].create({
+            'name': 'informe_ventas_orm.csv',
+            'type': 'binary',
+            'datas': csv_content,
+            'mimetype': 'text/csv',
+        })
+
+        # Devolvemos la acción de descarga
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'self',
         }
 
 
