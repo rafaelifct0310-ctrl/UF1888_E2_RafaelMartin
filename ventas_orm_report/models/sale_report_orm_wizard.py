@@ -1,4 +1,3 @@
-
 # Importamos lo necesario para exportar a csv:
 import csv
 import io
