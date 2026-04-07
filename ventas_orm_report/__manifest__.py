@@ -20,9 +20,9 @@
     # Se puede usar para documentar qué hace el módulo
     # ------------------------------------------------------------
     'description': '''
-Módulo didáctico para Odoo 19 que muestra cómo explotar información
-comercial usando únicamente el ORM de Odoo.
-''',
+    Módulo para Odoo 19 que muestra cómo explotar información
+    comercial usando únicamente el ORM de Odoo.
+    ''',
 
     # ------------------------------------------------------------
     # CATEGORÍA (organización dentro de Odoo Apps)
@@ -32,7 +32,7 @@ comercial usando únicamente el ORM de Odoo.
     # ------------------------------------------------------------
     # AUTOR DEL MÓDULO
     # ------------------------------------------------------------
-    'author': 'OpenAI',
+    'author': 'Rafael Martin',
 
     # ------------------------------------------------------------
     # LICENCIA
