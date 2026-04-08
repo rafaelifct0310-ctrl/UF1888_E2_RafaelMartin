@@ -1,10 +1,10 @@
 # Ventas ORM Report para Odoo 19
 
-Módulo didáctico para mostrar consultas de ventas usando **ORM** en Odoo 19.
+Módulo para mostrar consultas de ventas usando **ORM** en Odoo 19.
 
 ## Qué hace
 
-- Añade un menú: **Ventas > Consultas ORM > Informe de ventas**
+- Añade un menú: **Consultas ORM > Informe de ventas**
 - Permite filtrar por:
   - fecha desde
   - fecha hasta
@@ -18,16 +18,16 @@ Módulo didáctico para mostrar consultas de ventas usando **ORM** en Odoo 19.
 
 ## Instalación
 
-1. Copiar la carpeta `ventas_orm_report` al directorio de addons personalizados.
+1. Copiar la carpeta `ventas_orm_report` al directorio de addons personalizados (/opt/odoo/odoo/custom_addons).
 2. Reiniciar Odoo.
 3. Actualizar lista de aplicaciones.
 4. Instalar el módulo **Ventas ORM Report**.
 
 ## Ruta funcional
 
-**Ventas > Consultas ORM > Informe de ventas**
+**Consultas ORM > Informe de ventas**
 
-## Idea didáctica
+## Recordatorio
 
 El módulo trabaja con el modelo `sale.order.line` usando el ORM de Odoo:
 
